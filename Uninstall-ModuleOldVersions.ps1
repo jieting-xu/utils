@@ -1,5 +1,5 @@
 Start-Transcript -OutputDirectory $PSScriptRoot -NoClobber
-Write-Host "This script is needed to run as administrator!" -ForegroundColor Magenta
+Write-Host "This script needs to be run as administrator!" -ForegroundColor Magenta
 
 $modules = Get-InstalledModule
 foreach ($mod in $modules) {
@@ -16,7 +16,7 @@ foreach ($mod in $modules) {
         foreach ($ver in $versions) {
             if ($ver.Version -ne $latest.Version) {
                 Write-Host ">>Uninstalling $($ver.Name) ver: $($ver.Version) / Latest ver: $($latest.version)"
-                $ver | Uninstall-Module -Force
+                #$ver | Uninstall-Module -Force
                 Write-Host "<<Done uninstall [$($ver.Name) - $($ver.Version)]"
                 Write-Output "----------"
             }            
@@ -26,6 +26,7 @@ foreach ($mod in $modules) {
 
 Stop-Transcript -Verbose
 
+exit $LASTEXITCODE
 #---------------------------------------
 # ERROR HANDLING
 #---------------------------------------
